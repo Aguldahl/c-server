@@ -1,8 +1,9 @@
-#define Server_H
 #include <inttypes.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
 
+#ifndef server_h
+#define server_h
 struct Header {
   uint16_t flags;
   uint16_t checksum;
@@ -15,7 +16,7 @@ typedef struct Header Header;
 
 struct Packet {
   Header header;
-  char data[1024 - sizeof(header)];
+  char data[1024 - sizeof(Header)];
 };
 
 struct Client {
@@ -36,3 +37,5 @@ int setup_client(Client client, const char *servername, uint16_t server_port);
 int send_data(Client client, char *buffer, size_t size);
 
 int recv_data(Client client, char *buffer, size_t size);
+
+#endif
